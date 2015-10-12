@@ -1,0 +1,17 @@
+{
+  "name": "r2compose",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel": "^5.8.23",
+    "bluebird": "^2.10.0",
+    "ramda": "^0.17.1",
+    "rethinkdb": "^2.1.1"
+  }
+}
