@@ -5,14 +5,14 @@ var Promise = require('bluebird');
 var cert = require('fs').readFileSync('./compose');
 
 var rLocal = require('rethinkdbdash')({
-    max: 100,
+    max: 50,
     port: 28015,
-    host: 'rethinkdb',
+    host: 'test.clientsuccess.com',
     cursor: true
 });
 
 var rRemote = require('rethinkdbdash')({
-    max: 100,
+    max: 50,
     port: 1,
     host: '',
     authKey: '',
@@ -34,18 +34,16 @@ function _removeUndefinedFields(document) {
         : R.omit(_getUndefinedFields(document), document);
 }
 
-var _replace = document => rConn()
-    .then(conn => r.db(db).table(table).insert(_removeUndefinedFields(document), {
+var _replace = document => rRemote.db(db).table(table).insert(_removeUndefinedFields(document), {
         conflict: 'replace',
         returnChanges: true
-    }).run(conn)
-        .tap(() => console.log('inserted ' + insertedCount++)));
+    }).run()
+        .tap(() => console.log('inserted ' + insertedCount++));
 
-var _run = () => rRemote.db(db).table(table).run()
+var _run = () => rLocal.db(db).table(table).run()
     .then(cursor => cursor.each(function (err, row) {
         if (err) console.error('ERROR');
-        console.log(row);
-        //_replace(row);
+        _replace(row);
 
     }, function () {
         cursor.close();
