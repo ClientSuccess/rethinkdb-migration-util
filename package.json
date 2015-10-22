@@ -12,6 +12,6 @@
     "babel": "^5.8.23",
     "bluebird": "^2.10.0",
     "ramda": "^0.17.1",
-    "rethinkdb": "^2.1.1"
+    "rethinkdbdash": "^2.1.11"
   }
 }
